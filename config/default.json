@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "diplomaDB": "mongodb+srv://max:89ahelat@cluster0.dxcjf.mongodb.net/diploma?retryWrites=true&w=majority",
+  "jwtSecret": "projectDiploma"
+}

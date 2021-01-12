@@ -1,2 +1,2 @@
-# diploma-back
-Diploma back
+# diploma
+Diploma

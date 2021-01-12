@@ -1,0 +1,43 @@
+{
+  "name": "diploma-back",
+  "version": "1.0.0",
+  "description": "The Project Diploma, back",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slitefull/diploma.git"
+  },
+  "keywords": [
+    "diploma",
+    "MERN",
+    "React",
+    "MongoDB",
+    "Express",
+    "Node.js",
+    "TypeScript",
+    "Styled",
+    "Components"
+  ],
+  "author": "Maksym Tytechko <viptitechko1@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Slitefull/diploma/issues"
+  },
+  "homepage": "https://github.com/Slitefull/diploma#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
