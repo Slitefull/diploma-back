@@ -4,5 +4,6 @@ const { Router } = require('express')
 const router = Router()
 
 router.get('/goods', goodsService.getAllGoods)
+router.post('/good', goodsService.createGood)
 
 module.exports = router

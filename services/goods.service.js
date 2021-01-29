@@ -1,12 +1,27 @@
 const Goods = require('../models/goods')
 
 const goodsService = {
+  createGood: async (req, res) => {
+    try {
+      const { name, description, category, price, count, thumbnail, discount } = req.body
+
+      const isExist = await Goods.findOne(name)
+      if (isExist) return res.status(400).json({ message: "This commodity is already exists!" })
+
+      const commodity = new Goods({ name, description, category, price, count, thumbnail, discount })
+      await commodity.save()
+
+      res.status(201).json({ message: "New commodity has been created" })
+    } catch (e) {
+      res.status(500).json({ message: "Something went wrong, please try again later." })
+    }
+  },
   getAllGoods: async (req, res) => {
     try {
       const overallCount = await Goods.countDocuments()
-      const overallCountStock = await Goods.find({ 'inStock':'true' }).countDocuments()
+      const overallCountStock = await Goods.find({ 'inStock': 'true' }).countDocuments()
 
-      await Goods.find({}, function(err, result) {
+      await Goods.find({}, function (err, result) {
         if (err) {
           res.status(500).json({ message: "Can't find goods." })
         } else {
