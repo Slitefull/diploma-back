@@ -3,12 +3,12 @@ const Goods = require('../models/goods')
 const goodsService = {
   createGood: async (req, res) => {
     try {
-      const { name, description, category, price, count, thumbnail, discount } = req.body
+      const { name, description, category, price, onStockCount, thumbnail, discount } = req.body
 
-      const isExist = await Goods.findOne(name)
+      const isExist = await Goods.findOne({ name })
       if (isExist) return res.status(400).json({ message: "This commodity is already exists!" })
 
-      const commodity = new Goods({ name, description, category, price, count, thumbnail, discount })
+      const commodity = new Goods({ name, description, category, price, onStockCount, thumbnail, discount })
       await commodity.save()
 
       res.status(201).json({ message: "New commodity has been created" })
