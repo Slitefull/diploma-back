@@ -10,15 +10,15 @@ const authService = {
       const { name, surname, email, password } = req.body
 
       const candidate = await User.findOne({ email })
-      if (candidate) return res.status(400).json({ message: "This user is already exists!" })
+      if (candidate) return res.status(400).json("thisUserIsAlreadyExists")
 
       const hashedPassword = await bcrypt.hash(password, 12)
       const user = new User({ name, surname, email, password: hashedPassword, role: 'regular' })
       await user.save()
 
-      res.status(201).json({ message: "New user has been created!" })
+      res.status(201).json("newUserHasBeenCreated")
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
   login: async (req, res) => {
@@ -26,10 +26,10 @@ const authService = {
       const { email, password } = req.body
       const user = await User.findOne({ email })
 
-      if (!user) return res.status(400).json({ message: "User is not found." })
+      if (!user) return res.status(400).json("userIsNotFound")
 
       const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) return res.status(400).json({ message: "Invalid password, please try again" })
+      if (!isMatch) return res.status(400).json("invalidPasswordPleaseTryAgain")
 
       const token = jwt.sign(
         {
@@ -46,7 +46,7 @@ const authService = {
         token,
       })
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   }
 }

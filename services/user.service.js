@@ -8,13 +8,13 @@ const userService = {
     try {
       await User.find({}, function(err, result) {
         if (err) {
-          res.status(500).json({ message: "Can't find users." })
+          res.status(500).json("cantFindUsers")
         } else {
           res.status(200).json({ users: result });
         }
       })
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
   editProfile: async (req, res) => {
@@ -22,7 +22,7 @@ const userService = {
       const { data, userId } = req.body
       const user = await User.findById(userId)
 
-      if (!userId) return res.status(401).json({ message: "Not correct user id" })
+      if (!userId) return res.status(401).json("notCorrectUserId")
 
       user.name = data.name
       await user.save()
@@ -38,7 +38,7 @@ const userService = {
 
       res.status(200).json({ token })
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
   makeAdmin: async (req, res) => {
@@ -46,15 +46,15 @@ const userService = {
       const { userId } = req.body
       const user = await User.findById(userId)
 
-      if (!user) return res.status(401).json({ message: "User was not found!" })
-      if (user.role === userRoles.admin) return res.status(401).json({ message: "User is already admin!" })
+      if (!user) return res.status(401).json("userWasNotFound")
+      if (user.role === userRoles.admin) return res.status(401).json("userIsAlreadyAdmin")
 
       user.role = userRoles.admin
       await user.save()
 
-      res.status(200).json({ message: "User role was updated" })
+      res.status(200).json("userRoleWasUpdated")
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
   removeAdmin: async (req, res) => {
@@ -62,15 +62,15 @@ const userService = {
       const { userId } = req.body
       const user = await User.findById(userId)
 
-      if (!user) return res.status(401).json({ message: "User was not found!" })
-      if (user.role === userRoles.regular) return res.status(401).json({ message: "User is already regular!" })
+      if (!user) return res.status(401).json("userWasNotFound")
+      if (user.role === userRoles.regular) return res.status(401).json("userIsAlreadyRegular")
 
       user.role = userRoles.regular
       await user.save()
 
-      res.status(200).json({ message: "User role was updated" })
+      res.status(200).json("userRoleWasUpdated")
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   }
 }

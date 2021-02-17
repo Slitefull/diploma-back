@@ -7,14 +7,14 @@ const goodsService = {
       const { name, description, category, price, onStockCount, thumbnail, discount } = req.body
 
       const isExist = await Goods.findOne({ name })
-      if (isExist) return res.status(400).json({ message: "This commodity is already exists!" })
+      if (isExist) return res.status(400).json("thisCommodityIsAlreadyExists")
 
       const commodity = new Goods({ name, description, category, price, onStockCount, thumbnail, discount })
       await commodity.save()
 
-      res.status(201).json({ message: "New commodity has been created" })
+      res.status(201).json("newCommodityHasBeenCreated")
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
   getAllGoods: async (req, res) => {
@@ -24,25 +24,25 @@ const goodsService = {
 
       await Goods.find({}, function (err, result) {
         if (err) {
-          res.status(500).json({ message: "Can't find goods." })
+          res.status(500).json("cantFindGoods")
         } else {
           res.status(200).json({ goods: result, goodsCount: overallCount, onStock: overallCountStock });
         }
       })
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
   createGoodsCategory: async (req, res) => {
     const { name } = req.body
 
     const isExist = await Category.findOne({ name })
-    if (isExist) return res.status(400).json({ message: "This category is already exist!" })
+    if (isExist) return res.status(400).json('thisCategoryIsAlreadyExist')
 
     const category = new Category({ name })
     await category.save()
 
-    res.status(201).json({ message: "New category has been created" })
+    res.status(201).json("somethingWentWrongPleaseTryAgainLater")
   },
   getAllCategories: async (req, res) => {
     try {
@@ -50,13 +50,13 @@ const goodsService = {
 
       await Category.find({}, function (err, result) {
         if (err) {
-          res.status(500).json({ message: "Can't find categories." })
+          res.status(500).json("cantFindCategories")
         } else {
           res.status(200).json({ categories: result, categoriesCount: overallCount });
         }
       })
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong, please try again later." })
+      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
   },
 }
