@@ -4,12 +4,23 @@ const Category = require('../models/category')
 const goodsService = {
   createGood: async (req, res) => {
     try {
-      const { name, description, category, price, onStockCount, thumbnail, discount } = req.body
+      const { name, description, category, price, onStockCount=0, thumbnail, discount=0 } = req.body
 
       const isExist = await Goods.findOne({ name })
       if (isExist) return res.status(400).json("thisCommodityIsAlreadyExists")
 
-      const commodity = new Goods({ name, description, category, price, onStockCount, thumbnail, discount })
+      const priceWithDiscount = price - discount;
+
+      const commodity = new Goods({
+        name,
+        description,
+        price,
+        discount,
+        priceWithDiscount,
+        category,
+        onStockCount,
+        thumbnail,
+      })
       await commodity.save()
 
       res.status(201).json("newCommodityHasBeenCreated")
