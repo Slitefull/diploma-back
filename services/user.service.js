@@ -19,7 +19,7 @@ const userService = {
   },
   editProfile: async (req, res) => {
     try {
-      const { name, email, surname, userName, userId } = req.body
+      const { name, email, surname, userName, userId, role } = req.body
       const user = await User.findById(userId)
 
       if (!userId) return res.status(401).json("notCorrectUserId")
@@ -37,7 +37,8 @@ const userService = {
           name: user.name,
           email: user.email,
           surname: user.surname,
-          userName: user.userName
+          userName: user.userName,
+          role
         },
         config.get('jwtSecret'),
         { expiresIn: '1h' }

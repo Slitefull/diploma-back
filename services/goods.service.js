@@ -30,14 +30,11 @@ const goodsService = {
   },
   getAllGoods: async (req, res) => {
     try {
-      const overallCount = await Goods.countDocuments()
-      const overallCountStock = await Goods.find({ 'inStock': 'true' }).countDocuments()
-
       await Goods.find({}, function (err, result) {
         if (err) {
           res.status(500).json("cantFindGoods")
         } else {
-          res.status(200).json({ goods: result, goodsCount: overallCount, onStock: overallCountStock });
+          res.status(200).json({ goods: result });
         }
       })
     } catch (e) {
@@ -57,13 +54,11 @@ const goodsService = {
   },
   getAllCategories: async (req, res) => {
     try {
-      const overallCount = await Category.countDocuments()
-
       await Category.find({}, function (err, result) {
         if (err) {
           res.status(500).json("cantFindCategories")
         } else {
-          res.status(200).json({ categories: result, categoriesCount: overallCount });
+          res.status(200).json({ categories: result });
         }
       })
     } catch (e) {
