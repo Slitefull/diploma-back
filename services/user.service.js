@@ -19,7 +19,7 @@ const userService = {
   },
   editProfile: async (req, res) => {
     try {
-      const { name, email, surname, userName, userId, role } = req.body
+      const { name, email, surname, userName, userId, role, avatar, city, postalCode=0, address, status } = req.body
       const user = await User.findById(userId)
 
       if (!userId) return res.status(401).json("notCorrectUserId")
@@ -28,18 +28,16 @@ const userService = {
       user.email = email
       user.surname = surname
       user.userName = userName
+      user.avatar = avatar
+      user.address = address
+      user.city = city
+      user.postalCode = postalCode
+      user.status = status
 
       await user.save()
 
       const token = jwt.sign(
-        {
-          userId: user.id,
-          name: user.name,
-          email: user.email,
-          surname: user.surname,
-          userName: user.userName,
-          role
-        },
+        { userId, name, email, surname, userName, avatar, address, city, postalCode, status, role },
         config.get('jwtSecret'),
         { expiresIn: '1h' }
       )

@@ -39,15 +39,13 @@ const authService = {
           userName: user.userName,
           email: user.email,
           role: user.role,
+          avatar: user.avatar,
         },
         config.get('jwtSecret'),
         { expiresIn: '1h' }
       )
 
-      res.status(200).json({
-        avatar: user.avatar || null,
-        token,
-      })
+      res.status(200).json({ token })
     } catch (e) {
       res.status(500).json("somethingWentWrongPleaseTryAgainLater")
     }
