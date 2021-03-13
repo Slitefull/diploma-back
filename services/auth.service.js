@@ -40,6 +40,10 @@ const authService = {
           email: user.email,
           role: user.role,
           avatar: user.avatar,
+          postalCode: user.postalCode,
+          city: user.city,
+          status: user.status,
+          address: user.address
         },
         config.get('jwtSecret'),
         { expiresIn: '1h' }
