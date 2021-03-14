@@ -12,14 +12,7 @@ const goodsService = {
       const priceWithDiscount = price - discount;
 
       const commodity = new Goods({
-        name,
-        description,
-        price,
-        discount,
-        priceWithDiscount,
-        category,
-        onStockCount,
-        thumbnail,
+        name, description, price, discount, priceWithDiscount, category, onStockCount, thumbnail,
       });
       await commodity.save();
 
