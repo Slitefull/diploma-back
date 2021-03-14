@@ -12,6 +12,6 @@ const schema = new Schema({
   city: { type: String },
   postalCode: { type: String },
   status: { type: String },
-})
+});
 
-module.exports = model('Users', schema)
+module.exports = model('Users', schema);

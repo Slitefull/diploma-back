@@ -1,7 +1,7 @@
 const userRoles = {
   superAdmin: 'superAdmin',
   admin: 'admin',
-  regular: 'regular'
-}
+  regular: 'regular',
+};
 
-module.exports = userRoles
+module.exports = userRoles;

@@ -1,35 +1,35 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const config = require('config')
-const User = require('../models/user')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const User = require('../models/user');
 
 
 const authService = {
   register: async (req, res) => {
     try {
-      const { name, surname, userName, email, password } = req.body
+      const { name, surname, userName, email, password } = req.body;
 
-      const candidate = await User.findOne({ email })
-      if (candidate) return res.status(400).json("thisUserIsAlreadyExists")
+      const candidate = await User.findOne({ email });
+      if (candidate) return res.status(400).json('thisUserIsAlreadyExists');
 
-      const hashedPassword = await bcrypt.hash(password, 12)
-      const user = new User({ name, surname, userName, email, password: hashedPassword, role: 'regular' })
-      await user.save()
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const user = new User({ name, surname, userName, email, password: hashedPassword, role: 'regular' });
+      await user.save();
 
-      res.status(201).json("newUserHasBeenCreated")
+      res.status(201).json('newUserHasBeenCreated');
     } catch (e) {
-      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
+      res.status(500).json('somethingWentWrongPleaseTryAgainLater');
     }
   },
   login: async (req, res) => {
     try {
-      const { email, password } = req.body
-      const user = await User.findOne({ email })
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
 
-      if (!user) return res.status(400).json("userIsNotFound")
+      if (!user) return res.status(400).json('userIsNotFound');
 
-      const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) return res.status(400).json("invalidPasswordPleaseTryAgain")
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return res.status(400).json('invalidPasswordPleaseTryAgain');
 
       const token = jwt.sign(
         {
@@ -43,17 +43,17 @@ const authService = {
           postalCode: user.postalCode,
           city: user.city,
           status: user.status,
-          address: user.address
+          address: user.address,
         },
         config.get('jwtSecret'),
-        { expiresIn: '1h' }
-      )
+        { expiresIn: '1h' },
+      );
 
-      res.status(200).json({ token })
+      res.status(200).json({ token });
     } catch (e) {
-      res.status(500).json("somethingWentWrongPleaseTryAgainLater")
+      res.status(500).json('somethingWentWrongPleaseTryAgainLater');
     }
-  }
-}
+  },
+};
 
-module.exports = authService
+module.exports = authService;
