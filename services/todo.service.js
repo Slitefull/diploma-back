@@ -8,10 +8,10 @@ const todoService = {
 
       const newTodo = new Todo({
         userId,
-        todoList: { todo },
+        todoList: [todo],
       });
-      await newTodo.save();
 
+      await newTodo.save();
       res.status(201).json('newTodoHasBeenCreated');
     } catch (e) {
       res.status(500).json('somethingWentWrongPleaseTryAgainLater');

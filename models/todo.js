@@ -3,8 +3,8 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
   userId: { type: String, required: true },
   todoList: [{
-    name: String,
-    status: String,
+    todo: { type: String },
+    status: { type: String },
   }],
 });
 
