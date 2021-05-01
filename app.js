@@ -2,12 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 
+const Cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const goodsRoutes = require('./routes/goods.routes');
 const todoRoutes = require('./routes/todo.routes');
 
-const Cors = require('cors');
 
 const app = express();
 app.use(express.json({ extended: true }));

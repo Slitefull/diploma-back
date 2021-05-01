@@ -1,6 +1,7 @@
 const Goods = require('../models/goods');
 const Category = require('../models/category');
 
+
 const goodsService = {
   createGood: async (req, res) => {
     try {
@@ -23,7 +24,7 @@ const goodsService = {
   },
   getAllGoods: async (req, res) => {
     try {
-      await Goods.find({}, function (err, result) {
+      await Goods.find({}, (err, result) => {
         if (err) {
           res.status(500).json('cantFindGoods');
         } else {
@@ -47,7 +48,7 @@ const goodsService = {
   },
   getAllCategories: async (req, res) => {
     try {
-      await Category.find({}, function (err, result) {
+      await Category.find({}, (err, result) => {
         if (err) {
           res.status(500).json('cantFindCategories');
         } else {

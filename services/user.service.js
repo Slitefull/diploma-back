@@ -1,12 +1,13 @@
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const User = require('../models/user');
 const userRoles = require('../consts');
+
 
 const userService = {
   getAllUsers: async (req, res) => {
     try {
-      await User.find({}, function (err, result) {
+      await User.find({}, (err, result) => {
         if (err) {
           res.status(500).json('cantFindUsers');
         } else {

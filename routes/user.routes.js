@@ -1,5 +1,6 @@
-const profileService = require('../services/user.service');
 const { Router } = require('express');
+const profileService = require('../services/user.service');
+
 
 const router = Router();
 

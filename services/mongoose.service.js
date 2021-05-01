@@ -1,3 +1,5 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.connection
+
+module.exports = mongoose.connection;
+
