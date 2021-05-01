@@ -5,8 +5,8 @@ const schema = new Schema({
   todoLists: [{
     listName: { type: String },
     todos: [{
-      todo: { type: String },
-      status: { type: String }
+      name: { type: String },
+      isActive: { type: Boolean }
     }],
   }],
 });

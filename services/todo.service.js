@@ -22,12 +22,27 @@ const todoService = {
         const { todoLists } = todoList;
         todoLists.push(list)
         await todoList.save();
-        res.status(201).json('newTodoListHasBeenAdded');
       } else {
         const newTodo = new Todo({ userId, todoLists: [list] });
         await newTodo.save();
-        res.status(201).json('newTodoListHasBeenCreated');
       }
+      const { todoLists } = todoList
+
+      res.status(200).json({ lists: todoLists });
+    } catch (e) {
+      res.status(500).json('somethingWentWrongPleaseTryAgainLater');
+    }
+  },
+  deleteList: async (req, res) => {
+    try {
+      const { userId, listId } = req.params;
+
+      const list = await Todo.findOne({ userId });
+      list.todoLists = list.todoLists.filter(element => element._id.toString() !== listId)
+      await list.save();
+      const { todoLists } = list
+
+      res.status(200).json({ lists: todoLists });
     } catch (e) {
       res.status(500).json('somethingWentWrongPleaseTryAgainLater');
     }
@@ -35,14 +50,15 @@ const todoService = {
   createTodo: async (req, res) => {
     try {
       const { userId, listId } = req.params;
-      const { status, todoName } = req.body;
+      const { todo } = req.body;
 
-      const lists = await Todo.findOne({ userId });
-      const selectedList = lists.todoLists.find((todo) => todo._id.toString() === listId);
-      selectedList.todos.push({ todo: todoName, status })
-      await lists.save();
+      const list = await Todo.findOne({ userId });
+      const selectedList = list.todoLists.find((todo) => todo._id.toString() === listId);
+      selectedList.todos.push(todo)
+      await list.save();
+      const { todoLists } = list
 
-      res.status(200).json('newTodoHasBeenCreated');
+      res.status(200).json({ lists: todoLists });
     } catch (e) {
       res.status(500).json('somethingWentWrongPleaseTryAgainLater');
     }
