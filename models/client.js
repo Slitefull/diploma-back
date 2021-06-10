@@ -15,4 +15,4 @@ const schema = new Schema({
   status: { type: String },
 });
 
-module.exports = model('Users', schema);
+module.exports = model('Client', schema);
